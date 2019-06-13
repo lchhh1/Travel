@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Data.Json;
+using Windows.Devices.Geolocation;
 using Windows.Storage;
 
 namespace Travel
@@ -17,6 +18,9 @@ namespace Travel
         public static IList<Province> Provinces => _provinces;
 
         public static IList<City> Cities => _cities;
+
+        public static City GetNearestCity(BasicGeoposition position) =>
+            _cities.Min(city => (GetDistance(city.Geoposition, position), city)).city;
 
         public static async void Load()
         {
@@ -160,5 +164,8 @@ namespace Travel
 
             City FindCity(string name) => Array.Find(_cities, city => city.LocalName.StartsWith(name));
         }
+
+        private static double GetDistance(BasicGeoposition from, BasicGeoposition to) =>
+            Math.Sqrt(Math.Pow(to.Longitude - from.Longitude, 2) +Math.Pow(to.Latitude - from.Latitude, 2));
     }
 }

@@ -11,6 +11,7 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
 namespace Travel
@@ -44,6 +45,8 @@ namespace Travel
         };
 
         private TimeSpan _elapsedTime;
+
+        private TextBox _focusedTextBox;
 
         #region Simulation
         private static readonly RandomAccessStreamReference _stopImage =
@@ -93,6 +96,8 @@ namespace Travel
                 }
             };
             _timer.Tick += Timer_Tick;
+
+            FocusManager.GettingFocus += FocusManager_GettingFocus;
         }
 
         #region Simulation
@@ -516,6 +521,23 @@ namespace Travel
                     });
 
                     break;
+            }
+        }
+
+        private void FocusManager_GettingFocus(object sender, GettingFocusEventArgs e)
+        {
+            if (e.NewFocusedElement is MapControl)
+            {
+                _focusedTextBox = e.OldFocusedElement is TextBox textBox ? textBox : null;
+            }
+        }
+
+        private void MapControl_MapTapped(MapControl sender, MapInputEventArgs args)
+        {
+            if (_focusedTextBox != null)
+            {
+                _wayPoints[GetContainerIndex(WayPointList, _focusedTextBox)] =
+                    new WayPoint(Map.GetNearestCity(args.Location.Position));
             }
         }
 #pragma warning restore IDE0060 // Remove unused parameter
