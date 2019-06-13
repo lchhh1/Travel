@@ -1,0 +1,308 @@
+﻿[
+  {
+    "from": "Aomen",
+    "to": [
+      "Guangzhou",
+      "Xianggang"
+    ]
+  },
+  {
+    "from": "Beijing",
+    "to": [
+      "Tianjin",
+      "Shijiazhuang"
+    ]
+  },
+  {
+    "from": "Changchun",
+    "to": [
+      "Haerbin",
+      "Huhehaote",
+      "Shenyang"
+    ]
+  },
+  {
+    "from": "Changsha",
+    "to": [
+      "Chongqing",
+      "Guangzhou",
+      "Guiyang",
+      "Nanchang",
+      "Wuhan"
+    ]
+  },
+  {
+    "from": "Chengdu",
+    "to": [
+      "Chongqing",
+      "Guiyang",
+      "Kunming",
+      "Lanzhou",
+      "Lasa",
+      "Xian",
+      "Xining"
+    ]
+  },
+  {
+    "from": "Chongqing",
+    "to": [
+      "Changsha",
+      "Chengdu",
+      "Guiyang",
+      "Wuhan",
+      "Xian"
+    ]
+  },
+  {
+    "from": "Fuzhou",
+    "to": [
+      "Guangzhou",
+      "Hangzhou",
+      "Nanchang"
+    ]
+  },
+  {
+    "from": "Guangzhou",
+    "to": [
+      "Aomen",
+      "Changsha",
+      "Fuzhou",
+      "Nanchang",
+      "Nanning",
+      "Xianggang"
+    ]
+  },
+  {
+    "from": "Guiyang",
+    "to": [
+      "Changsha",
+      "Chengdu",
+      "Chongqing",
+      "Kunming",
+      "Nanning"
+    ]
+  },
+  {
+    "from": "Haerbin",
+    "to": [
+      "Changchun",
+      "Huhehaote"
+    ]
+  },
+  {
+    "from": "Haikou",
+    "to": []
+  },
+  {
+    "from": "Hangzhou",
+    "to": [
+      "Fuzhou",
+      "Hefei",
+      "Nanchang",
+      "Nanjing",
+      "Shanghai"
+    ]
+  },
+  {
+    "from": "Hefei",
+    "to": [
+      "Hangzhou",
+      "Jinan",
+      "Nanchang",
+      "Nanjing",
+      "Wuhan",
+      "Zhengzhou"
+    ]
+  },
+  {
+    "from": "Huhehaote",
+    "to": [
+      "Changchun",
+      "Haerbin",
+      "Lanzhou",
+      "Shenyang",
+      "Shijiazhuang",
+      "Taiyuan",
+      "Xian",
+      "Yinchuan"
+    ]
+  },
+  {
+    "from": "Jinan",
+    "to": [
+      "Hefei",
+      "Nanjing",
+      "Shijiazhuang",
+      "Zhengzhou"
+    ]
+  },
+  {
+    "from": "Kunming",
+    "to": [
+      "Chengdu",
+      "Guiyang",
+      "Lasa",
+      "Nanning"
+    ]
+  },
+  {
+    "from": "Lanzhou",
+    "to": [
+      "Chengdu",
+      "Huhehaote",
+      "Wulumuqi",
+      "Xian",
+      "Xining",
+      "Yinchuan"
+    ]
+  },
+  {
+    "from": "Lasa",
+    "to": [
+      "Chengdu",
+      "Kunming",
+      "Xining"
+    ]
+  },
+  {
+    "from": "Nanchang",
+    "to": [
+      "Changsha",
+      "Fuzhou",
+      "Guangzhou",
+      "Hangzhou",
+      "Hefei",
+      "Wuhan"
+    ]
+  },
+  {
+    "from": "Nanjing",
+    "to": [
+      "Hangzhou",
+      "Hefei",
+      "Jinan",
+      "Shanghai"
+    ]
+  },
+  {
+    "from": "Nanning",
+    "to": [
+      "Guangzhou",
+      "Guiyang",
+      "Kunming"
+    ]
+  },
+  {
+    "from": "Shanghai",
+    "to": [
+      "Hangzhou",
+      "Nanjing"
+    ]
+  },
+  {
+    "from": "Shenyang",
+    "to": [
+      "Changchun",
+      "Huhehaote",
+      "Shijiazhuang"
+    ]
+  },
+  {
+    "from": "Shijiazhuang",
+    "to": [
+      "Beijing",
+      "Huhehaote",
+      "Jinan",
+      "Shenyang",
+      "Taiyuan",
+      "Tianjin",
+      "Zhengzhou"
+    ]
+  },
+  {
+    "from": "Taibei",
+    "to": []
+  },
+  {
+    "from": "Taiyuan",
+    "to": [
+      "Huhehaote",
+      "Shijiazhuang",
+      "Xian",
+      "Zhengzhou"
+    ]
+  },
+  {
+    "from": "Tianjin",
+    "to": [
+      "Beijing",
+      "Shijiazhuang"
+    ]
+  },
+  {
+    "from": "Wuhan",
+    "to": [
+      "Changsha",
+      "Chongqing",
+      "Hefei",
+      "Nanchang",
+      "Xian",
+      "Zhengzhou"
+    ]
+  },
+  {
+    "from": "Wulumuqi",
+    "to": [
+      "Lanzhou",
+      "Xining"
+    ]
+  },
+  {
+    "from": "Xian",
+    "to": [
+      "Chengdu",
+      "Chongqing",
+      "Huhehaote",
+      "Lanzhou",
+      "Taiyuan",
+      "Wuhan",
+      "Yinchuan",
+      "Zhengzhou"
+    ]
+  },
+  {
+    "from": "Xianggang",
+    "to": [
+      "Aomen",
+      "Guangzhou"
+    ]
+  },
+  {
+    "from": "Xining",
+    "to": [
+      "Chengdu",
+      "Lanzhou",
+      "Lasa",
+      "Wulumuqi"
+    ]
+  },
+  {
+    "from": "Yinchuan",
+    "to": [
+      "Huhehaote",
+      "Lanzhou",
+      "Xian"
+    ]
+  },
+  {
+    "from": "Zhengzhou",
+    "to": [
+      "Hefei",
+      "Jinan",
+      "Shijiazhuang",
+      "Taiyuan",
+      "Wuhan",
+      "Xian"
+    ]
+  }
+]

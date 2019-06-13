@@ -1,0 +1,288 @@
+﻿<Page
+    x:Class="Travel.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Travel"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <local:ThemeToIconConverter x:Key="ThemeToIconConverter" />
+        <local:TechnologyToIconConverter x:Key="TechnologyToIconConverter" />
+        <local:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
+        <local:TimeSpanToStringConverter x:Key="TimeSpanToStringConverter" />
+        <local:PriceToStringConverter x:Key="PriceToStringConverter" />
+        <x:Double x:Key="ButtonIconWidth">18</x:Double>
+        <Thickness x:Key="FlyoutPadding">20</Thickness>
+        <Style x:Key="NormalButtonRevealStyle" TargetType="Button" BasedOn="{StaticResource ButtonRevealStyle}">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <maps:MapControl x:Name="MapControl" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" ZoomLevel="4" />
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Click="ContinueButton_Click" ToolTipService.ToolTip="Continue" IsEnabled="{x:Bind CanContinue, Mode=OneWay}" Style="{StaticResource NormalButtonRevealStyle}">
+                    <Viewbox Width="{StaticResource ButtonIconWidth}">
+                        <SymbolIcon Symbol="Play" />
+                    </Viewbox>
+                </Button>
+                <Button Click="PauseButton_Click" ToolTipService.ToolTip="Pause" IsEnabled="{x:Bind CanPause, Mode=OneWay}" Style="{StaticResource NormalButtonRevealStyle}">
+                    <Viewbox Width="{StaticResource ButtonIconWidth}">
+                        <SymbolIcon Symbol="Pause" />
+                    </Viewbox>
+                </Button>
+                <Button Click="StopButton_Click" ToolTipService.ToolTip="Stop" IsEnabled="{x:Bind CanStop, Mode=OneWay}" Style="{StaticResource NormalButtonRevealStyle}">
+                    <Viewbox Width="{StaticResource ButtonIconWidth}">
+                        <SymbolIcon Symbol="Stop" />
+                    </Viewbox>
+                </Button>
+                <Button Click="RestartButton_Click" ToolTipService.ToolTip="Refresh" IsEnabled="{x:Bind CanRestart, Mode=OneWay}" Style="{StaticResource NormalButtonRevealStyle}">
+                    <Viewbox Width="{StaticResource ButtonIconWidth}">
+                        <SymbolIcon Symbol="Refresh" />
+                    </Viewbox>
+                </Button>
+            </StackPanel>
+            <Button Grid.Row="1" ToolTipService.ToolTip="Theme" HorizontalAlignment="Right" Style="{StaticResource NormalButtonRevealStyle}">
+                <Viewbox Width="{StaticResource ButtonIconWidth}">
+                    <FontIcon Glyph="{x:Bind ActualTheme, Mode=OneWay, Converter={StaticResource ThemeToIconConverter}}" />
+                </Viewbox>
+                <Button.Flyout>
+                    <Flyout>
+                        <Flyout.FlyoutPresenterStyle>
+                            <Style TargetType="FlyoutPresenter">
+                                <Setter Property="Background" Value="{ThemeResource SystemControlAcrylicElementBrush}" />
+                                <Setter Property="Padding" Value="{StaticResource FlyoutPadding}" />
+                            </Style>
+                        </Flyout.FlyoutPresenterStyle>
+                        <StackPanel>
+                            <RadioButton Content="Default" Tag="Default" IsChecked="True" Checked="ThemeRadioButton_Checked" />
+                            <RadioButton Content="Light" Tag="Light" Checked="ThemeRadioButton_Checked" />
+                            <RadioButton Content="Dark" Tag="Dark" Checked="ThemeRadioButton_Checked" />
+                        </StackPanel>
+                    </Flyout>
+                </Button.Flyout>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="0" Margin="20" Background="{ThemeResource SystemControlAcrylicElementMediumHighBrush}">
+            <Grid x:Name="OptionsPanel">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource NormalButtonRevealStyle}">
+                        <Viewbox Width="{StaticResource ButtonIconWidth}">
+                            <!-- DateTime -->
+                            <FontIcon Glyph="&#xEC92;" />
+                        </Viewbox>
+                        <Button.Flyout>
+                            <Flyout>
+                                <Flyout.FlyoutPresenterStyle>
+                                    <Style TargetType="FlyoutPresenter">
+                                        <Setter Property="Background" Value="{ThemeResource SystemControlAcrylicElementBrush}" />
+                                        <Setter Property="Padding" Value="{StaticResource FlyoutPadding}" />
+                                    </Style>
+                                </Flyout.FlyoutPresenterStyle>
+                                <StackPanel>
+                                    <StackPanel Padding="8">
+                                        <RadioButton GroupName="TimeOption" Content="Leave now" Tag="LeaveNow" IsChecked="True" Checked="TimeOptionRadioButton_Checked" />
+                                        <RadioButton GroupName="TimeOption" Content="Depart at" Tag="DepartAt" Checked="TimeOptionRadioButton_Checked" />
+                                        <RadioButton GroupName="TimeOption" Content="Arrive by" Tag="ArriveBy" Checked="TimeOptionRadioButton_Checked" />
+                                    </StackPanel>
+                                    <StackPanel Visibility="{x:Bind IsDateTimePickersVisible, Mode=OneWay}">
+                                        <DatePicker x:Name="DatePicker" Grid.Row="0" HorizontalAlignment="Stretch" Margin="8" />
+                                        <TimePicker x:Name="TimePicker" Grid.Row="0" HorizontalAlignment="Stretch" Margin="8" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                    <Button Style="{StaticResource NormalButtonRevealStyle}">
+                        <Viewbox Width="{StaticResource ButtonIconWidth}">
+                            <SymbolIcon Symbol="Setting" />
+                        </Viewbox>
+                        <Button.Flyout>
+                            <Flyout>
+                                <Flyout.FlyoutPresenterStyle>
+                                    <Style TargetType="FlyoutPresenter">
+                                        <Setter Property="Background" Value="{ThemeResource SystemControlAcrylicElementBrush}" />
+                                        <Setter Property="Padding" Value="{StaticResource FlyoutPadding}" />
+                                    </Style>
+                                </Flyout.FlyoutPresenterStyle>
+                                <StackPanel>
+                                    <RadioButton GroupName="Strategy" Content="Minimize time" Tag="MinimizeTime" IsChecked="True" Checked="StrategyRadioButton_Checked" />
+                                    <RadioButton GroupName="Strategy" Content="Minimize cost" Tag="MinimizeCost" Checked="StrategyRadioButton_Checked" />
+                                </StackPanel>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                </StackPanel>
+                <ListView
+                    x:Name="WayPointList"
+                    ItemsSource="{x:Bind _wayPoints}"
+                    Grid.Row="1"
+                    Margin="0,8,0,8"
+                    SelectionMode="None"
+                    AllowDrop="True"
+                    CanDragItems="True"
+                    CanReorderItems="True">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="local:WayPoint">
+                            <Grid Height="40" Padding="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Viewbox Width="16">
+                                    <!-- GripperBarHorizontal -->
+                                    <FontIcon Glyph="&#xE76F;" />
+                                </Viewbox>
+                                <AutoSuggestBox
+                                    Grid.Column="1"
+                                    Text="{x:Bind Name}"
+                                    DisplayMemberPath="FullLocalName"
+                                    TextMemberPath="FullLocalName"
+                                    TextChanged="AutoSuggestBox_TextChanged"
+                                    QuerySubmitted="AutoSuggestBox_QuerySubmitted"
+                                    VerticalAlignment="Center" />
+                                <Button Grid.Column="2" Click="RemoveButton_Click" Width="32" Height="32" Padding="0" Background="Transparent">
+                                    <Viewbox Width="16">
+                                        <SymbolIcon Symbol="Cancel" />
+                                    </Viewbox>
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button Grid.Row="2" Click="AddButton_Click" Style="{StaticResource NormalButtonRevealStyle}">
+                    <Viewbox Width="{StaticResource ButtonIconWidth}">
+                        <SymbolIcon Symbol="Add" />
+                    </Viewbox>
+                </Button>
+                <Button Grid.Row="2" Click="AddAllButton_Click" Margin="40,0,0,0" Style="{StaticResource NormalButtonRevealStyle}">
+                    <Viewbox Width="{StaticResource ButtonIconWidth}">
+                        <!-- ExploreContent -->
+                        <FontIcon Glyph="&#xECCD;" />
+                    </Viewbox>
+                </Button>
+                <Button Grid.Row="2" Click="QueryButton_Click" IsEnabled="{x:Bind CanQuery, Mode=OneWay}" HorizontalAlignment="Right" Style="{StaticResource NormalButtonRevealStyle}">
+                    <Viewbox Width="{StaticResource ButtonIconWidth}">
+                        <SymbolIcon Symbol="Forward" />
+                    </Viewbox>
+                </Button>
+            </Grid>
+            <Grid x:Name="ResultsPanel" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Click="EditButton_Click" IsEnabled="{x:Bind CanEdit, Mode=OneWay}" Style="{StaticResource NormalButtonRevealStyle}">
+                    <Viewbox Width="{StaticResource ButtonIconWidth}">
+                        <SymbolIcon Symbol="Edit" />
+                    </Viewbox>
+                </Button>
+                <Grid Grid.Row="1" Padding="16" Visibility="{x:Bind IsTravelSummaryVisible, Mode=OneWay}" BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}" BorderThickness="0,1,0,1">
+                    <StackPanel>
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="16" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind TravelSummary.DepartureTime, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}" />
+                            <TextBlock Text="-" Padding="4,0,4,0" />
+                            <TextBlock Text="{x:Bind TravelSummary.ArrivalTime, Converter={StaticResource DateTimeToStringConverter}, Mode=OneWay}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind TravelSummary.Duration, Converter={StaticResource TimeSpanToStringConverter}, Mode=OneWay}" />
+                            <TextBlock Text="·" Padding="4,0,4,0" />
+                            <TextBlock Text="{x:Bind TravelSummary.Cost, Converter={StaticResource PriceToStringConverter}, Mode=OneWay}" />
+                        </StackPanel>
+                    </StackPanel>
+                    <Button Click="StartButton_Click" IsEnabled="{x:Bind CanStart, Mode=OneWay}" HorizontalAlignment="Right" Style="{StaticResource NormalButtonRevealStyle}">
+                        <Viewbox Width="{StaticResource ButtonIconWidth}">
+                            <!-- MapDirections -->
+                            <FontIcon Glyph="&#xE816;" />
+                        </Viewbox>
+                    </Button>
+                </Grid>
+                <ListView Grid.Row="2" ItemsSource="{x:Bind _travelDetails}" IsItemClickEnabled="True" ItemClick="TravelDetailList_ItemClick">
+                    <ListView.Resources>
+                        <DataTemplate x:Key="TravelStopTemplate" x:DataType="local:TravelStop">
+                            <Grid Padding="0,8,0,8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Bind ArrivalTime, Converter={StaticResource DateTimeToStringConverter}}" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Bind DepartureTime, Converter={StaticResource DateTimeToStringConverter}}" HorizontalAlignment="Center" />
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind Name}" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Duration, Converter={StaticResource TimeSpanToStringConverter}}" />
+                            </Grid>
+                        </DataTemplate>
+                        <DataTemplate x:Key="TravelStepTemplate" x:DataType="local:TravelStep">
+                            <Grid Padding="0,8,0,8">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Glyph="{x:Bind Technology, Converter={StaticResource TechnologyToIconConverter}}" />
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{x:Bind Name}" />
+                                <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                                    <TextBlock Text="{x:Bind Duration, Converter={StaticResource TimeSpanToStringConverter}}" />
+                                    <TextBlock Text="·" Padding="4,0,4,0" />
+                                    <TextBlock Text="{x:Bind Price, Converter={StaticResource PriceToStringConverter}}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                        <DataTemplate x:Key="TravelNullTemplate" x:DataType="local:TravelNull">
+                            <TextBlock Text="{x:Bind Name}" />
+                        </DataTemplate>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplateSelector>
+                        <local:WayPointDataTemplateSelector />
+                    </ListView.ItemTemplateSelector>
+                </ListView>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

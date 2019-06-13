@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Anhui" xml:space="preserve">
+    <value>安徽省</value>
+  </data>
+  <data name="Aomen" xml:space="preserve">
+    <value>澳门特别行政区</value>
+  </data>
+  <data name="Beijing" xml:space="preserve">
+    <value>北京市</value>
+  </data>
+  <data name="Changchun" xml:space="preserve">
+    <value>长春市</value>
+  </data>
+  <data name="Changsha" xml:space="preserve">
+    <value>长沙市</value>
+  </data>
+  <data name="Chengdu" xml:space="preserve">
+    <value>成都市</value>
+  </data>
+  <data name="Chongqing" xml:space="preserve">
+    <value>重庆市</value>
+  </data>
+  <data name="Fujian" xml:space="preserve">
+    <value>福建省</value>
+  </data>
+  <data name="Fuzhou" xml:space="preserve">
+    <value>福州市</value>
+  </data>
+  <data name="Gansu" xml:space="preserve">
+    <value>甘肃省</value>
+  </data>
+  <data name="Guangdong" xml:space="preserve">
+    <value>广东省</value>
+  </data>
+  <data name="Guangxi" xml:space="preserve">
+    <value>广西壮族自治区</value>
+  </data>
+  <data name="Guangzhou" xml:space="preserve">
+    <value>广州市</value>
+  </data>
+  <data name="Guiyang" xml:space="preserve">
+    <value>贵阳市</value>
+  </data>
+  <data name="Guizhou" xml:space="preserve">
+    <value>贵州省</value>
+  </data>
+  <data name="Haerbin" xml:space="preserve">
+    <value>哈尔滨市</value>
+  </data>
+  <data name="Haikou" xml:space="preserve">
+    <value>海口市</value>
+  </data>
+  <data name="Hainan" xml:space="preserve">
+    <value>海南省</value>
+  </data>
+  <data name="Hangzhou" xml:space="preserve">
+    <value>杭州市</value>
+  </data>
+  <data name="Hebei" xml:space="preserve">
+    <value>河北省</value>
+  </data>
+  <data name="Hefei" xml:space="preserve">
+    <value>合肥市</value>
+  </data>
+  <data name="Heilongjiang" xml:space="preserve">
+    <value>黑龙江省</value>
+  </data>
+  <data name="Henan" xml:space="preserve">
+    <value>河南省</value>
+  </data>
+  <data name="Hubei" xml:space="preserve">
+    <value>湖北省</value>
+  </data>
+  <data name="Huhehaote" xml:space="preserve">
+    <value>呼和浩特市</value>
+  </data>
+  <data name="Hunan" xml:space="preserve">
+    <value>湖南省</value>
+  </data>
+  <data name="Jiangsu" xml:space="preserve">
+    <value>江苏省</value>
+  </data>
+  <data name="Jiangxi" xml:space="preserve">
+    <value>江西省</value>
+  </data>
+  <data name="Jilin" xml:space="preserve">
+    <value>吉林省</value>
+  </data>
+  <data name="Jinan" xml:space="preserve">
+    <value>济南市</value>
+  </data>
+  <data name="Kunming" xml:space="preserve">
+    <value>昆明市</value>
+  </data>
+  <data name="Lanzhou" xml:space="preserve">
+    <value>兰州市</value>
+  </data>
+  <data name="Lasa" xml:space="preserve">
+    <value>拉萨市</value>
+  </data>
+  <data name="Liaoning" xml:space="preserve">
+    <value>辽宁省</value>
+  </data>
+  <data name="Nanchang" xml:space="preserve">
+    <value>南昌市</value>
+  </data>
+  <data name="Nanjing" xml:space="preserve">
+    <value>南京市</value>
+  </data>
+  <data name="Nanning" xml:space="preserve">
+    <value>南宁市</value>
+  </data>
+  <data name="Neimenggu" xml:space="preserve">
+    <value>内蒙古自治区</value>
+  </data>
+  <data name="Ningxia" xml:space="preserve">
+    <value>宁夏回族自治区</value>
+  </data>
+  <data name="Qinghai" xml:space="preserve">
+    <value>青海省</value>
+  </data>
+  <data name="Shandong" xml:space="preserve">
+    <value>山东省</value>
+  </data>
+  <data name="Shanghai" xml:space="preserve">
+    <value>上海市</value>
+  </data>
+  <data name="Shaanxi" xml:space="preserve">
+    <value>陕西省</value>
+  </data>
+  <data name="Shanxi" xml:space="preserve">
+    <value>山西省</value>
+  </data>
+  <data name="Shenyang" xml:space="preserve">
+    <value>沈阳市</value>
+  </data>
+  <data name="Shijiazhuang" xml:space="preserve">
+    <value>石家庄市</value>
+  </data>
+  <data name="Sichuan" xml:space="preserve">
+    <value>四川省</value>
+  </data>
+  <data name="Taibei" xml:space="preserve">
+    <value>台北市</value>
+  </data>
+  <data name="Taiwan" xml:space="preserve">
+    <value>台湾省</value>
+  </data>
+  <data name="Taiyuan" xml:space="preserve">
+    <value>太原市</value>
+  </data>
+  <data name="Tianjin" xml:space="preserve">
+    <value>天津市</value>
+  </data>
+  <data name="Wuhan" xml:space="preserve">
+    <value>武汉市</value>
+  </data>
+  <data name="Wulumuqi" xml:space="preserve">
+    <value>乌鲁木齐市</value>
+  </data>
+  <data name="Xian" xml:space="preserve">
+    <value>西安市</value>
+  </data>
+  <data name="Xianggang" xml:space="preserve">
+    <value>香港特别行政区</value>
+  </data>
+  <data name="Xining" xml:space="preserve">
+    <value>西宁市</value>
+  </data>
+  <data name="Xinjiang" xml:space="preserve">
+    <value>新疆维吾尔自治区</value>
+  </data>
+  <data name="Xizang" xml:space="preserve">
+    <value>西藏自治区</value>
+  </data>
+  <data name="Yinchuan" xml:space="preserve">
+    <value>银川市</value>
+  </data>
+  <data name="Yunnan" xml:space="preserve">
+    <value>云南省</value>
+  </data>
+  <data name="Zhejiang" xml:space="preserve">
+    <value>浙江省</value>
+  </data>
+  <data name="Zhengzhou" xml:space="preserve">
+    <value>郑州市</value>
+  </data>
+</root>

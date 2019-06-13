@@ -1,0 +1,326 @@
+﻿[
+  {
+    "province_short": "Beijing",
+    "province_long": "Beijingshi",
+    "special": true,
+    "geoposition": {
+      "longtitude": 116.407173156738,
+      "latitude": 39.9046897888184
+    }
+  },
+  {
+    "province_short": "Tianjin",
+    "province_long": "Tianjinshi",
+    "special": true,
+    "geoposition": {
+      "longtitude": 117.183334350586,
+      "latitude": 39.1333312988281
+    }
+  },
+  {
+    "province_short": "Hebei",
+    "province_long": "Hebeisheng",
+    "city_short": "Shijiazhuang",
+    "city_long": "Shijiazhuangshi",
+    "geoposition": {
+      "longtitude": 114.514297485352,
+      "latitude": 38.0427589416504
+    }
+  },
+  {
+    "province_short": "Shanxi",
+    "province_long": "Shanxisheng",
+    "city_short": "Taiyuan",
+    "city_long": "Taiyuanshi",
+    "geoposition": {
+      "longtitude": 112.550666809082,
+      "latitude": 37.8705902099609
+    }
+  },
+  {
+    "province_short": "Neimenggu",
+    "province_long": "Neimengguzizhiqu",
+    "city_short": "Huhehaote",
+    "city_long": "Huhehaoteshi",
+    "geoposition": {
+      "longtitude": 111.751991271973,
+      "latitude": 40.8414916992188
+    }
+  },
+  {
+    "province_short": "Liaoning",
+    "province_long": "Liaoningsheng",
+    "city_short": "Shenyang",
+    "city_long": "Shenyangshi",
+    "geoposition": {
+      "longtitude": 123.463096618652,
+      "latitude": 41.6771812438965
+    }
+  },
+  {
+    "province_short": "Jilin",
+    "province_long": "Jilinsheng",
+    "city_short": "Changchun",
+    "city_long": "Changchunshi",
+    "geoposition": {
+      "longtitude": 125.323570251465,
+      "latitude": 43.8160209655762
+    }
+  },
+  {
+    "province_short": "Heilongjiang",
+    "province_long": "Heilongjiangsheng",
+    "city_short": "Haerbin",
+    "city_long": "Haerbinshi",
+    "geoposition": {
+      "longtitude": 126.535797119141,
+      "latitude": 45.8021583557129
+    }
+  },
+  {
+    "province_short": "Shanghai",
+    "province_long": "Shanghaishi",
+    "special": true,
+    "geoposition": {
+      "longtitude": 121.473701477051,
+      "latitude": 31.2303695678711
+    }
+  },
+  {
+    "province_short": "Jiangsu",
+    "province_long": "Jiangsusheng",
+    "city_short": "Nanjing",
+    "city_long": "Nanjingshi",
+    "geoposition": {
+      "longtitude": 118.79647064209,
+      "latitude": 32.0583801269531
+    }
+  },
+  {
+    "province_short": "Zhejiang",
+    "province_long": "Zhejiangsheng",
+    "city_short": "Hangzhou",
+    "city_long": "Hangzhoushi",
+    "geoposition": {
+      "longtitude": 120.155151367188,
+      "latitude": 30.2741508483887
+    }
+  },
+  {
+    "province_short": "Anhui",
+    "province_long": "Anhuisheng",
+    "city_short": "Hefei",
+    "city_long": "Hefeishi",
+    "geoposition": {
+      "longtitude": 117.229011535645,
+      "latitude": 31.8205699920654
+    }
+  },
+  {
+    "province_short": "Fujian",
+    "province_long": "Fujiansheng",
+    "city_short": "Fuzhou",
+    "city_long": "Fuzhoushi",
+    "geoposition": {
+      "longtitude": 119.29647064209,
+      "latitude": 26.0742092132568
+    }
+  },
+  {
+    "province_short": "Jiangxi",
+    "province_long": "Jiangxisheng",
+    "city_short": "Nanchang",
+    "city_long": "Nanchangshi",
+    "geoposition": {
+      "longtitude": 115.857940673828,
+      "latitude": 28.6820201873779
+    }
+  },
+  {
+    "province_short": "Shandong",
+    "province_long": "Shandongsheng",
+    "city_short": "Jinan",
+    "city_long": "Jinanshi",
+    "geoposition": {
+      "longtitude": 117.120086669922,
+      "latitude": 36.6518402099609
+    }
+  },
+  {
+    "province_short": "Henan",
+    "province_long": "Henansheng",
+    "city_short": "Zhengzhou",
+    "city_long": "Zhengzhoushi",
+    "geoposition": {
+      "longtitude": 113.624931335449,
+      "latitude": 34.7472496032715
+    }
+  },
+  {
+    "province_short": "Hubei",
+    "province_long": "Hubeisheng",
+    "city_short": "Wuhan",
+    "city_long": "Wuhanshi",
+    "geoposition": {
+      "longtitude": 114.305252075195,
+      "latitude": 30.5927600860596
+    }
+  },
+  {
+    "province_short": "Hunan",
+    "province_long": "Hunansheng",
+    "city_short": "Changsha",
+    "city_long": "Changshashi",
+    "geoposition": {
+      "longtitude": 112.938858032227,
+      "latitude": 28.2277793884277
+    }
+  },
+  {
+    "province_short": "Guangdong",
+    "province_long": "Guangdongsheng",
+    "city_short": "Guangzhou",
+    "city_long": "Guangzhoushi",
+    "geoposition": {
+      "longtitude": 113.264358520508,
+      "latitude": 23.1290798187256
+    }
+  },
+  {
+    "province_short": "Guangxi",
+    "province_long": "Guangxizhuangzuzizhiqu",
+    "city_short": "Nanning",
+    "city_long": "Nanningshi",
+    "geoposition": {
+      "longtitude": 108.366897583008,
+      "latitude": 22.8167304992676
+    }
+  },
+  {
+    "province_short": "Hainan",
+    "province_long": "Hainansheng",
+    "city_short": "Haikou",
+    "city_long": "Haikoushi",
+    "geoposition": {
+      "longtitude": 110.199890136719,
+      "latitude": 20.0442199707031
+    }
+  },
+  {
+    "province_short": "Chongqing",
+    "province_long": "Chongqingshi",
+    "special": true,
+    "geoposition": {
+      "longtitude": 106.550727844238,
+      "latitude": 29.5647106170654
+    }
+  },
+  {
+    "province_short": "Sichuan",
+    "province_long": "Sichuansheng",
+    "city_short": "Chengdu",
+    "city_long": "Chengdushi",
+    "geoposition": {
+      "longtitude": 104.064758300781,
+      "latitude": 30.5701999664307
+    }
+  },
+  {
+    "province_short": "Guizhou",
+    "province_long": "Guizhousheng",
+    "city_short": "Guiyang",
+    "city_long": "Guiyangshi",
+    "geoposition": {
+      "longtitude": 106.630241394043,
+      "latitude": 26.6470203399658
+    }
+  },
+  {
+    "province_short": "Yunnan",
+    "province_long": "Yunnansheng",
+    "city_short": "Kunming",
+    "city_long": "Kunmingshi",
+    "geoposition": {
+      "longtitude": 102.833221435547,
+      "latitude": 24.87965965271
+    }
+  },
+  {
+    "province_short": "Xizang",
+    "province_long": "Xizangzizhiqu",
+    "city_short": "Lasa",
+    "city_long": "Lasashi",
+    "geoposition": {
+      "longtitude": 91.114501953125,
+      "latitude": 29.6441497802734
+    }
+  },
+  {
+    "province_short": "Shaanxi",
+    "province_long": "Shaanxisheng",
+    "city_short": "Xian",
+    "city_long": "Xianshi",
+    "geoposition": {
+      "longtitude": 108.939842224121,
+      "latitude": 34.3412704467773
+    }
+  },
+  {
+    "province_short": "Gansu",
+    "province_long": "Gansusheng",
+    "city_short": "Lanzhou",
+    "city_long": "Lanzhoushi",
+    "geoposition": {
+      "longtitude": 103.834167480469,
+      "latitude": 36.0613784790039
+    }
+  },
+  {
+    "province_short": "Qinghai",
+    "province_long": "Qinghaisheng",
+    "city_short": "Xining",
+    "city_long": "Xiningshi",
+    "geoposition": {
+      "longtitude": 101.777816772461,
+      "latitude": 36.6172904968262
+    }
+  },
+  {
+    "province_short": "Ningxia",
+    "province_long": "Ningxiahuizuzizhiqu",
+    "city_short": "Yinchuan",
+    "city_long": "Yinchuanshi",
+    "geoposition": {
+      "longtitude": 106.232482910156,
+      "latitude": 38.4864387512207
+    }
+  },
+  {
+    "province_short": "Xinjiang",
+    "province_long": "Xinjiangweiwuerzizhiqu",
+    "city_short": "Wulumuqi",
+    "city_long": "Wulumuqishi",
+    "geoposition": {
+      "longtitude": 87.409309387207,
+      "latitude": 43.4712905883789
+    }
+  },
+  {
+    "province_short": "Xianggang",
+    "province_long": "Xianggangtebiexingzhengqu",
+    "special": true,
+    "geoposition": {
+      "longtitude": 114.191223144531,
+      "latitude": 22.333080291748
+    }
+  },
+  {
+    "province_short": "Aomen",
+    "province_long": "Aomentebiexingzhengqu",
+    "special": true,
+    "geoposition": {
+      "longtitude": 113.588584899902,
+      "latitude": 22.1451396942139
+    }
+  }
+]
