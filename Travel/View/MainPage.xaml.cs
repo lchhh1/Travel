@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Windows.Devices.Geolocation;
@@ -41,6 +42,8 @@ namespace Travel
             StrokeThickness = _mapPolylineStrokeThickness,
             StrokeColor = _mapPolylineStrokeColor
         };
+
+        private TimeSpan _elapsedTime;
 
         #region Simulation
         private static readonly RandomAccessStreamReference _stopImage =
@@ -159,6 +162,8 @@ namespace Travel
 
         private bool IsTravelSummaryVisible => _travelSummary != null;
 
+        private string ElapsedTimeString => $"{_elapsedTime:s'.'ff} seconds";
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged([CallerMemberName] string propertyName = null) =>
@@ -241,11 +246,16 @@ namespace Travel
             MapControl.MapElements.Remove(_previewPolyline);
 
             var pickedDateTime = IsDateTimePickersVisible ? PickedDateTime >= MinDateTime ? PickedDateTime : MinDateTime : default;
+
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             var result = new Routing().Query(
                 cities: _wayPoints.Select(point => point.City.Index).ToArray(),
                 strategy: _timeOption == TimeOption.ArriveBy ? Strategy.MinimizeCostLimitedTime : _strategy,
                 departureTime: _timeOption == TimeOption.DepartAt ? pickedDateTime : MinDateTime,
                 arrivalTime: _timeOption == TimeOption.ArriveBy ? pickedDateTime : default);
+            _elapsedTime = stopwatch.Elapsed;
+            NotifyPropertyChanged(nameof(ElapsedTimeString));
 
             if (result == null)
             {

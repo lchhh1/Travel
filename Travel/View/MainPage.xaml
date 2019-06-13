@@ -32,7 +32,7 @@
             <ColumnDefinition Width="400" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <maps:MapControl x:Name="MapControl" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" ZoomLevel="4" />
+        <maps:MapControl x:Name="MapControl" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" ZoomLevel="4" MapTapped="MapControl_MapTapped" />
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="32" />
@@ -207,6 +207,7 @@
                         <SymbolIcon Symbol="Edit" />
                     </Viewbox>
                 </Button>
+                <TextBlock Grid.Row="0" Margin="56,0,0,0" Text="{x:Bind ElapsedTimeString, Mode=OneWay}" VerticalAlignment="Center" />
                 <Grid Grid.Row="1" Padding="16" Visibility="{x:Bind IsTravelSummaryVisible, Mode=OneWay}" BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}" BorderThickness="0,1,0,1">
                     <StackPanel>
                         <StackPanel.Resources>
