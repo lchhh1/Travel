@@ -8,6 +8,9 @@ using Windows.Storage;
 
 namespace Travel
 {
+/// <summary>
+/// 用于读取相关数据文件
+/// </summary>
     public static class Map
     {
         private static Province[] _provinces;

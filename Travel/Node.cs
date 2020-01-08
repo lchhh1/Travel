@@ -2,6 +2,9 @@
 
 namespace Travel
 {
+/// <summary>
+/// 节点定义，包含前一个城市、前一段路线以及开始和到达时间等信息
+/// </summary>
     public class Node
     {
         public City PrevCity => PrevCityIndex >= 0 ? Map.Cities[PrevCityIndex] : null;

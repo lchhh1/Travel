@@ -5,6 +5,9 @@ using Windows.Devices.Geolocation;
 
 namespace Travel
 {
+    /// <summary>
+    /// 城市的命名规则
+    /// </summary>
     public sealed class City
     {
         public City(int index, string shortName, string longName, double longtitude, double latitude)

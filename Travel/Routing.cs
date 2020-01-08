@@ -11,6 +11,14 @@ namespace Travel
 
         private double _factor;
 
+        /// <summary>
+        /// 队列结果生成。
+        /// </summary>
+        /// <param name="cities"></param>
+        /// <param name="strategy"></param>
+        /// <param name="departureTime"></param>
+        /// <param name="arrivalTime"></param>
+        /// <returns></returns>
         public QueryResult Query(IList<int> cities, Strategy strategy, DateTime departureTime, DateTime arrivalTime = default)
         {
             if (strategy == Strategy.MinimizeCostLimitedTime)
@@ -24,9 +32,9 @@ namespace Travel
             {
                 var start = cities[i];
                 var end = cities[i + 1];
-
                 var succeeded = strategy switch
                 {
+                    //分情况进行三种策略的选择。
                     Strategy.MinimizeTime => OptimizeTime(start, end, departureTime),
                     Strategy.MinimizeCost => OptimizeCost(start, end, departureTime),
                     Strategy.MinimizeScore => OptimizeScore(start, end, departureTime),
@@ -43,7 +51,13 @@ namespace Travel
 
             return new QueryResult(_path, _cost);
         }
-
+        /// <summary>
+        /// 最短时间相关算法：
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="departureTime"></param>
+        /// <returns></returns>
         private bool OptimizeTime(int start, int end, DateTime departureTime) =>
             Optimize(
                 start,
@@ -52,7 +66,13 @@ namespace Travel
                 departureTime,
                 node => node.ArrivalTime,
                 (minimalTime, route) => GetArrivalTime(minimalTime, route));
-
+        /// <summary>
+        /// 最小花费的算法
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="departureTime"></param>
+        /// <returns></returns>
         private bool OptimizeCost(int start, int end, DateTime departureTime) =>
             Optimize(
                 start,
@@ -61,7 +81,13 @@ namespace Travel
                 departureTime,
                 node => node.Cost,
                 (minimalCost, route) => minimalCost + route.Price);
-
+        /// <summary>
+        /// 使用二分搜索实现限时最小费用
+        /// </summary>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="departureTime"></param>
+        /// <returns></returns>
         private bool OptimizeScore(int start, int end, DateTime departureTime) =>
             Optimize(
                 start,
@@ -82,7 +108,17 @@ namespace Travel
                     var score = (time - departureTime).TotalMinutes + cost * _factor;
                     return (score, time, cost);
                 });
-
+        /// <summary>
+        /// Dijkstra算法，此处是程序的核心算法，在不同的策略中只需改变度量即可完成变化。此函数生成一个解决方案。
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="technologies"></param>
+        /// <param name="departureTime"></param>
+        /// <param name="valueSelector"></param>
+        /// <param name="newValueSelector"></param>
+        /// <returns></returns>
         private bool Optimize<T>(
             int start,
             int end,
@@ -178,7 +214,13 @@ namespace Travel
 
             return departureTime.Date + route.DepartureTime + route.Duration;
         }
-
+        /// <summary>
+        /// 此处是输出队列的结果部分。
+        /// </summary>
+        /// <param name="cities"></param>
+        /// <param name="departureTime"></param>
+        /// <param name="arrivalTime"></param>
+        /// <returns></returns>
         private QueryResult OptimizeCostLimitedTime(IList<int> cities, DateTime departureTime, DateTime arrivalTime)
         {
             var minTimeResult = new Routing().Query(cities, Strategy.MinimizeTime, departureTime);
@@ -221,7 +263,7 @@ namespace Travel
 
             var prevTime = minTime;
             var prevCost = maxCost;
-
+            //此处使用二分搜索，即引入一个权重变量，计算出权重来进行更新，根据计算的时间与规定时间的比较来改变最小/最大边界。
             for (var currentFactor = expectedFactor; ; currentFactor = (lowerFactor + upperFactor) / 2)
             {
                 var currentResult = new Routing { _factor = currentFactor }.Query(cities, Strategy.MinimizeScore, departureTime);

@@ -1,5 +1,8 @@
 ﻿namespace Travel
 {
+/// <summary>
+/// 在读取数据以及进行分析时，按照省来进行分类
+/// </summary>
     public sealed class Province
     {
         public Province(string shortName, string longName, bool special)

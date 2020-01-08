@@ -1,5 +1,7 @@
 ﻿using System;
-
+/// <summary>
+/// 此文件是弧（边）的相关定义，包括其权值，出发时间，出发节点等。
+/// </summary>
 namespace Travel
 {
     public sealed class Route
