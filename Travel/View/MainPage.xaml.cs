@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Xml;
 using Windows.Devices.Geolocation;
 using Windows.Storage;
@@ -257,7 +258,7 @@ namespace Travel
         private void RemoveButton_Click(object sender, RoutedEventArgs e) =>
             _wayPoints.RemoveAt(GetContainerIndex(WayPointList, sender as DependencyObject));
 
-        private void QueryButton_Click(object sender, RoutedEventArgs e)
+        private async void QueryButton_Click(object sender, RoutedEventArgs e)
         {
             OptionsPanel.Visibility = Visibility.Collapsed;
             ResultsPanel.Visibility = Visibility.Visible;
@@ -269,54 +270,58 @@ namespace Travel
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            var result = new Routing().Query(
+            var result = await Task.Run(() => new Routing().Query(
                 cities: _wayPoints.Select(point => point.City.Index).ToArray(),
                 strategy: ActualStrategy,
                 departureTime: _timeOption == TimeOption.DepartAt ? pickedDateTime : MinDateTime,
-                arrivalTime: _timeOption == TimeOption.ArriveBy ? pickedDateTime : default);
+                arrivalTime: _timeOption == TimeOption.ArriveBy ? pickedDateTime : default));
+
             _elapsedTime = stopwatch.Elapsed;
-            NotifyPropertyChanged(nameof(ElapsedTimeString));
-
-            if (result == null)
+            await Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
             {
-                _travelDetails.Add(new TravelNull());
-                TravelSummary = null;
-                return;
-            }
+                NotifyPropertyChanged(nameof(ElapsedTimeString));
 
-            var positions = new List<BasicGeoposition>();
-
-            var enumerator = result.Path.GetEnumerator();
-            _ = enumerator.MoveNext();
-
-            for (Node current = enumerator.Current, next = null; current != null; current = next)
-            {
-                if (current.PrevTech != Technology.None)
+                if (result == null)
                 {
-                    _travelDetails.Add(new TravelStep(current.PrevTech, current.PrevRoute));
+                    _travelDetails.Add(new TravelNull());
+                    TravelSummary = null;
+                    return;
                 }
 
-                City currentCity;
-                if (enumerator.MoveNext())
+                var positions = new List<BasicGeoposition>();
+
+                var enumerator = result.Path.GetEnumerator();
+                _ = enumerator.MoveNext();
+
+                for (Node current = enumerator.Current, next = null; current != null; current = next)
                 {
-                    next = enumerator.Current;
-                    currentCity = next.PrevCity;
-                    _travelDetails.Add(new TravelStop(currentCity, current.ArrivalTime, current.DepartureTime));
+                    if (current.PrevTech != Technology.None)
+                    {
+                        _travelDetails.Add(new TravelStep(current.PrevTech, current.PrevRoute));
+                    }
+
+                    City currentCity;
+                    if (enumerator.MoveNext())
+                    {
+                        next = enumerator.Current;
+                        currentCity = next.PrevCity;
+                        _travelDetails.Add(new TravelStop(currentCity, current.ArrivalTime, current.DepartureTime));
+                    }
+                    else
+                    {
+                        next = null;
+                        currentCity = _wayPoints.Last().City;
+                        _travelDetails.Add(new TravelStop(_wayPoints.Last().City, current.ArrivalTime, null));
+
+                        TravelSummary = new TravelSummary(result.Path.First().DepartureTime, current.ArrivalTime, result.Cost);
+                    }
+
+                    positions.Add(currentCity.Geoposition);
                 }
-                else
-                {
-                    next = null;
-                    currentCity = _wayPoints.Last().City;
-                    _travelDetails.Add(new TravelStop(_wayPoints.Last().City, current.ArrivalTime, null));
 
-                    TravelSummary = new TravelSummary(result.Path.First().DepartureTime, current.ArrivalTime, result.Cost);
-                }
-
-                positions.Add(currentCity.Geoposition);
-            }
-
-            _actualPolyline.Path = new Geopath(positions);
-            MapControl.MapElements.Add(_actualPolyline);
+                _actualPolyline.Path = new Geopath(positions);
+                MapControl.MapElements.Add(_actualPolyline);
+            });
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -657,6 +662,15 @@ namespace Travel
             }
 
             await Launcher.LaunchFileAsync(file);
+        }
+
+        private void DatePicker_DateChanged(object sender, DatePickerValueChangedEventArgs e) => VerifyPickedDateTime();
+
+        private void TimePicker_TimeChanged(object sender, TimePickerValueChangedEventArgs e) => VerifyPickedDateTime();
+
+        private void VerifyPickedDateTime()
+        {
+            ErrorText.Visibility = PickedDateTime >= MinDateTime.AddMinutes(-1) ? Visibility.Collapsed : Visibility.Visible;
         }
 #pragma warning restore IDE0060 // Remove unused parameter
     }

@@ -113,9 +113,10 @@
                                         <RadioButton GroupName="TimeOption" Content="Arrive by" Tag="ArriveBy" Checked="TimeOptionRadioButton_Checked" />
                                     </StackPanel>
                                     <StackPanel Visibility="{x:Bind IsDateTimePickersVisible, Mode=OneWay}">
-                                        <DatePicker x:Name="DatePicker" Grid.Row="0" HorizontalAlignment="Stretch" Margin="8" />
-                                        <TimePicker x:Name="TimePicker" Grid.Row="0" HorizontalAlignment="Stretch" Margin="8" />
+                                        <DatePicker x:Name="DatePicker" Grid.Row="0" HorizontalAlignment="Stretch" Margin="8" DateChanged="DatePicker_DateChanged" />
+                                        <TimePicker x:Name="TimePicker" Grid.Row="0" HorizontalAlignment="Stretch" Margin="8" TimeChanged="TimePicker_TimeChanged" />
                                     </StackPanel>
+                                    <TextBlock x:Name="ErrorText" Padding="8" Text="Pick a time that's not in the past." Foreground="Yellow" Visibility="Collapsed" />
                                 </StackPanel>
                             </Flyout>
                         </Button.Flyout>
