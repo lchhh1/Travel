@@ -19,8 +19,11 @@ namespace Travel
 
         public static IList<City> Cities => _cities;
 
-        public static City GetNearestCity(BasicGeoposition position) =>
-            _cities.Min(city => (GetDistance(city.Geoposition, position), city)).city;
+        public static City GetNearestCity(BasicGeoposition position)
+        {
+            var result = _cities.Min(city => (distance: GetDistance(city.Geoposition, position), city));
+            return result.distance < 0.5 ? result.city : null;
+        }
 
         public static async void Load()
         {

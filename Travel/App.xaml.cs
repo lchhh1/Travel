@@ -9,7 +9,11 @@ namespace Travel
 {
     public sealed partial class App : Application
     {
-        public App() => InitializeComponent();
+        public App()
+        {
+            InitializeComponent();
+            UnhandledException += App_UnhandledException;
+        }
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
@@ -38,6 +42,14 @@ namespace Travel
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+        }
+
+        private void App_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+            var dialog = new Windows.UI.Popups.MessageDialog(e.Message);
+            dialog.Commands.Add(new Windows.UI.Popups.UICommand("Exit", _ => Exit()));
+            _ = dialog.ShowAsync();
         }
     }
 }

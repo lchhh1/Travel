@@ -1,12 +1,5 @@
 ﻿[
   {
-    "from": "Aomen",
-    "to": [
-      "Guangzhou",
-      "Xianggang"
-    ]
-  },
-  {
     "from": "Beijing",
     "to": [
       "Tianjin",
@@ -64,12 +57,10 @@
   {
     "from": "Guangzhou",
     "to": [
-      "Aomen",
       "Changsha",
       "Fuzhou",
       "Nanchang",
-      "Nanning",
-      "Xianggang"
+      "Nanning"
     ]
   },
   {
@@ -268,13 +259,6 @@
       "Wuhan",
       "Yinchuan",
       "Zhengzhou"
-    ]
-  },
-  {
-    "from": "Xianggang",
-    "to": [
-      "Aomen",
-      "Guangzhou"
     ]
   },
   {

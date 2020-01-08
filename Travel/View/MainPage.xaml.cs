@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Xml;
 using Windows.Devices.Geolocation;
+using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.System;
 using Windows.UI;
+using Windows.UI.Core;
+using Windows.UI.Input.Inking;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Maps;
@@ -97,7 +103,11 @@ namespace Travel
             };
             _timer.Tick += Timer_Tick;
 
-            FocusManager.GettingFocus += FocusManager_GettingFocus;
+            MapControl.GettingFocus += MapControl_GettingFocus;
+
+            MapInkCanvas.InkPresenter.StrokesCollected += InkPresenter_StrokesCollected;
+            MapInkCanvas.InkPresenter.IsInputEnabled = false;
+            MapInkCanvas.InkPresenter.InputDeviceTypes = CoreInputDeviceTypes.Touch | CoreInputDeviceTypes.Pen | CoreInputDeviceTypes.Mouse;
         }
 
         #region Simulation
@@ -129,7 +139,6 @@ namespace Travel
                 TravelStep _ => _nextStop.ArrivalTime,
                 _ => throw new ArgumentException()
             };
-        #endregion
 
         private bool CanStart => _playStatus == PlayStatus.Stopped || _playStatus == PlayStatus.Editing;
 
@@ -140,6 +149,7 @@ namespace Travel
         private bool CanStop => _playStatus != PlayStatus.Stopped;
 
         private bool CanRestart => CanStop && _playStatus != PlayStatus.Editing;
+        #endregion
 
         private bool CanQuery =>
             _wayPoints.Count >= 2 && _wayPoints.All(point => point.City != null) &&
@@ -152,6 +162,8 @@ namespace Travel
         private DateTime PickedDateTime => DatePicker.Date.Date + TimePicker.Time;
 
         private bool IsDateTimePickersVisible => _timeOption != TimeOption.LeaveNow;
+
+        private Strategy ActualStrategy => _timeOption == TimeOption.ArriveBy ? Strategy.MinimizeCostLimitedTime : _strategy;
 
         private TravelSummary TravelSummary
         {
@@ -256,7 +268,7 @@ namespace Travel
             stopwatch.Start();
             var result = new Routing().Query(
                 cities: _wayPoints.Select(point => point.City.Index).ToArray(),
-                strategy: _timeOption == TimeOption.ArriveBy ? Strategy.MinimizeCostLimitedTime : _strategy,
+                strategy: ActualStrategy,
                 departureTime: _timeOption == TimeOption.DepartAt ? pickedDateTime : MinDateTime,
                 arrivalTime: _timeOption == TimeOption.ArriveBy ? pickedDateTime : default);
             _elapsedTime = stopwatch.Elapsed;
@@ -482,6 +494,7 @@ namespace Travel
         }
         #endregion
 
+        #region Input
         private void AutoSuggestBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
@@ -501,6 +514,55 @@ namespace Travel
                 _wayPoints[GetContainerIndex(WayPointList, sender as DependencyObject)] = new WayPoint(city);
             }
         }
+        #endregion
+
+        #region Choose
+        private void MapControl_GettingFocus(UIElement sender, GettingFocusEventArgs args) =>
+            _focusedTextBox = args.OldFocusedElement is TextBox textBox ? textBox : null;
+
+        private void MapControl_MapTapped(MapControl sender, MapInputEventArgs args)
+        {
+            if (_focusedTextBox != null)
+            {
+                _wayPoints[GetContainerIndex(WayPointList, _focusedTextBox)] =
+                    new WayPoint(Map.GetNearestCity(args.Location.Position));
+            }
+        }
+        #endregion
+
+        #region Draw
+        private void MapControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            MapInkCanvas.Width = e.NewSize.Width;
+            MapInkCanvas.Height = e.NewSize.Height;
+        }
+
+        private void DrawButton_Click(object sender, RoutedEventArgs e)
+        {
+            DrawButton.IsEnabled = false;
+            MapInkCanvas.InkPresenter.IsInputEnabled = true;
+        }
+
+        private void InkPresenter_StrokesCollected(InkPresenter sender, InkStrokesCollectedEventArgs args)
+        {
+            DrawButton.IsEnabled = true;
+            MapInkCanvas.InkPresenter.IsInputEnabled = false;
+            MapInkCanvas.InkPresenter.StrokeContainer.Clear();
+            _wayPoints.Clear();
+
+            City prevCity = null;
+            foreach (var segment in args.Strokes.First().GetRenderingSegments())
+            {
+                MapControl.TryGetLocationFromOffset(segment.Position, out var location);
+                var city = Map.GetNearestCity(location.Position);
+                if (city != null && city != prevCity)
+                {
+                    prevCity = city;
+                    _wayPoints.Add(new WayPoint(city));
+                }
+            }
+        }
+        #endregion
 
         private void TravelDetailList_ItemClick(object sender, ItemClickEventArgs e)
         {
@@ -524,21 +586,74 @@ namespace Travel
             }
         }
 
-        private void FocusManager_GettingFocus(object sender, GettingFocusEventArgs e)
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (e.NewFocusedElement is MapControl)
+            var file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync("Save.xml", CreationCollisionOption.ReplaceExisting);
+            var stream = await file.OpenStreamForWriteAsync();
+            using (var writer = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true }))
             {
-                _focusedTextBox = e.OldFocusedElement is TextBox textBox ? textBox : null;
-            }
-        }
+                var dateTimeToStringConverter = new DateTimeToStringConverter();
+                var timeSpanToStringConverter = new TimeSpanToStringConverter();
+                var priceToStringConverter = new PriceToStringConverter();
 
-        private void MapControl_MapTapped(MapControl sender, MapInputEventArgs args)
-        {
-            if (_focusedTextBox != null)
-            {
-                _wayPoints[GetContainerIndex(WayPointList, _focusedTextBox)] =
-                    new WayPoint(Map.GetNearestCity(args.Location.Position));
+                writer.WriteStartElement(nameof(Travel));
+                {
+                    writer.WriteElementString(nameof(TimeOption), _timeOption.ToString());
+                    writer.WriteElementString(nameof(PickedDateTime), dateTimeToStringConverter.Convert(IsDateTimePickersVisible ? PickedDateTime >= MinDateTime ? PickedDateTime : MinDateTime : default(DateTime?)));
+                    writer.WriteElementString(nameof(Strategy), ActualStrategy.ToString());
+
+                    writer.WriteStartElement("WayPoints");
+                    foreach (var point in _wayPoints)
+                    {
+                        writer.WriteStartElement(nameof(WayPoint));
+                        writer.WriteElementString(nameof(WayPoint.Name), point.Name);
+                        writer.WriteEndElement();
+                    }
+
+                    writer.WriteEndElement();
+
+                    writer.WriteStartElement(nameof(TravelSummary));
+                    {
+                        writer.WriteElementString(nameof(TravelSummary.DepartureTime), dateTimeToStringConverter.Convert(_travelSummary.DepartureTime));
+                        writer.WriteElementString(nameof(TravelSummary.ArrivalTime), dateTimeToStringConverter.Convert(_travelSummary.ArrivalTime));
+                        writer.WriteElementString(nameof(TravelSummary.Duration), timeSpanToStringConverter.Convert(_travelSummary.Duration));
+                        writer.WriteElementString(nameof(TravelSummary.Cost), priceToStringConverter.Convert(_travelSummary.Cost));
+                    }
+
+                    writer.WriteEndElement();
+
+                    writer.WriteStartElement("TravelDetails");
+                    foreach (var detail in _travelDetails)
+                    {
+                        switch (detail)
+                        {
+                            case TravelStop stop:
+                                writer.WriteStartElement(nameof(TravelStop));
+                                writer.WriteElementString(nameof(TravelStop.ArrivalTime), dateTimeToStringConverter.Convert(stop.ArrivalTime));
+                                writer.WriteElementString(nameof(TravelStop.DepartureTime), dateTimeToStringConverter.Convert(stop.DepartureTime));
+                                writer.WriteElementString(nameof(TravelStop.Name), stop.Name);
+                                writer.WriteElementString(nameof(TravelStop.Duration), timeSpanToStringConverter.Convert(stop.Duration));
+                                writer.WriteEndElement();
+                                break;
+
+                            case TravelStep step:
+                                writer.WriteStartElement(nameof(TravelStep));
+                                writer.WriteElementString(nameof(TravelStep.Technology), step.Technology.ToString());
+                                writer.WriteElementString(nameof(TravelStep.Name), step.Name);
+                                writer.WriteElementString(nameof(TravelStep.Duration), timeSpanToStringConverter.Convert(step.Duration));
+                                writer.WriteElementString(nameof(TravelStep.Price), priceToStringConverter.Convert(step.Price));
+                                writer.WriteEndElement();
+                                break;
+                        }
+                    }
+
+                    writer.WriteEndElement();
+                }
+
+                writer.WriteEndElement();
             }
+
+            await Launcher.LaunchFileAsync(file);
         }
 #pragma warning restore IDE0060 // Remove unused parameter
     }

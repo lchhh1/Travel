@@ -9,7 +9,7 @@
   <Identity
     Name="84faa00f-64cd-4da2-967f-a8f79ad68790"
     Publisher="CN=Liim"
-    Version="1.0.4.0" />
+    Version="1.2.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="84faa00f-64cd-4da2-967f-a8f79ad68790" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

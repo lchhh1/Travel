@@ -304,23 +304,5 @@
       "longtitude": 87.409309387207,
       "latitude": 43.4712905883789
     }
-  },
-  {
-    "province_short": "Xianggang",
-    "province_long": "Xianggangtebiexingzhengqu",
-    "special": true,
-    "geoposition": {
-      "longtitude": 114.191223144531,
-      "latitude": 22.333080291748
-    }
-  },
-  {
-    "province_short": "Aomen",
-    "province_long": "Aomentebiexingzhengqu",
-    "special": true,
-    "geoposition": {
-      "longtitude": 113.588584899902,
-      "latitude": 22.1451396942139
-    }
   }
 ]

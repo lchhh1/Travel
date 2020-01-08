@@ -32,7 +32,11 @@
             <ColumnDefinition Width="400" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <maps:MapControl x:Name="MapControl" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" ZoomLevel="4" MapTapped="MapControl_MapTapped" />
+        <maps:MapControl x:Name="MapControl" Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" ZoomLevel="4" MapTapped="MapControl_MapTapped" SizeChanged="MapControl_SizeChanged">
+            <maps:MapControl.Children>
+                <InkCanvas x:Name="MapInkCanvas" />
+            </maps:MapControl.Children>
+        </maps:MapControl>
         <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="32" />
@@ -179,17 +183,25 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Grid.Row="2" Click="AddButton_Click" Style="{StaticResource NormalButtonRevealStyle}">
-                    <Viewbox Width="{StaticResource ButtonIconWidth}">
-                        <SymbolIcon Symbol="Add" />
-                    </Viewbox>
-                </Button>
-                <Button Grid.Row="2" Click="AddAllButton_Click" Margin="40,0,0,0" Style="{StaticResource NormalButtonRevealStyle}">
-                    <Viewbox Width="{StaticResource ButtonIconWidth}">
-                        <!-- ExploreContent -->
-                        <FontIcon Glyph="&#xECCD;" />
-                    </Viewbox>
-                </Button>
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <Button Grid.Row="2" Click="AddButton_Click" Style="{StaticResource NormalButtonRevealStyle}">
+                        <Viewbox Width="{StaticResource ButtonIconWidth}">
+                            <SymbolIcon Symbol="Add" />
+                        </Viewbox>
+                    </Button>
+                    <Button Grid.Row="2" x:Name="DrawButton" Click="DrawButton_Click" Style="{StaticResource NormalButtonRevealStyle}">
+                        <Viewbox Width="{StaticResource ButtonIconWidth}">
+                            <!-- PenWorkspace -->
+                            <FontIcon Glyph="&#xEDC6;" />
+                        </Viewbox>
+                    </Button>
+                    <Button Grid.Row="2" Click="AddAllButton_Click" Style="{StaticResource NormalButtonRevealStyle}">
+                        <Viewbox Width="{StaticResource ButtonIconWidth}">
+                            <!-- ExploreContent -->
+                            <FontIcon Glyph="&#xECCD;" />
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
                 <Button Grid.Row="2" Click="QueryButton_Click" IsEnabled="{x:Bind CanQuery, Mode=OneWay}" HorizontalAlignment="Right" Style="{StaticResource NormalButtonRevealStyle}">
                     <Viewbox Width="{StaticResource ButtonIconWidth}">
                         <SymbolIcon Symbol="Forward" />
@@ -208,6 +220,11 @@
                     </Viewbox>
                 </Button>
                 <TextBlock Grid.Row="0" Margin="56,0,0,0" Text="{x:Bind ElapsedTimeString, Mode=OneWay}" VerticalAlignment="Center" />
+                <Button Grid.Row="0" Click="SaveButton_Click" HorizontalAlignment="Right" Visibility="{x:Bind IsTravelSummaryVisible, Mode=OneWay}" Style="{StaticResource NormalButtonRevealStyle}">
+                    <Viewbox Width="{StaticResource ButtonIconWidth}">
+                        <SymbolIcon Symbol="Save" />
+                    </Viewbox>
+                </Button>
                 <Grid Grid.Row="1" Padding="16" Visibility="{x:Bind IsTravelSummaryVisible, Mode=OneWay}" BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}" BorderThickness="0,1,0,1">
                     <StackPanel>
                         <StackPanel.Resources>
