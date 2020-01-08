@@ -22,6 +22,9 @@ using Windows.UI.Xaml.Media;
 
 namespace Travel
 {
+    /// <summary>
+    /// 相关GUI的按钮、选择以及页面调用、绘制操作
+    /// </summary>
     public sealed partial class MainPage : Page, INotifyPropertyChanged
     {
         private TimeOption _timeOption;
